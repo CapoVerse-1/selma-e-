@@ -110,12 +110,12 @@ const IncomePage = () => {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold text-gray-800">Einnahmen</h1>
-          <div className="flex space-x-2">
+          <div className="flex space-x-4">
             <button
               onClick={handleExportToExcel}
-              className="btn btn-outline flex items-center"
+              className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-4 py-2 border border-gray-300"
             >
-              <FiDownload className="mr-2" />
+              <FiDownload className="mr-2 transition-transform duration-300 group-hover:translate-y-[1px]" />
               Als Excel exportieren
             </button>
             <button
@@ -123,16 +123,16 @@ const IncomePage = () => {
                 setCurrentIncome(null);
                 setShowForm(!showForm);
               }}
-              className="btn btn-primary flex items-center"
+              className="btn btn-primary flex items-center transition-all duration-300 ease-in-out hover:shadow-md hover:scale-105 rounded-md px-4 py-2"
             >
-              <FiPlus className="mr-2" />
+              <FiPlus className="mr-2 transition-transform duration-300 group-hover:rotate-90" />
               Neue Einnahme
             </button>
           </div>
         </div>
 
         {showForm && (
-          <div className="card">
+          <div className="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 ease-in-out hover:shadow-lg">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">
               {currentIncome ? 'Einnahme bearbeiten' : 'Neue Einnahme hinzufügen'}
             </h2>
@@ -144,7 +144,7 @@ const IncomePage = () => {
           </div>
         )}
 
-        <div className="card">
+        <div className="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 ease-in-out hover:shadow-lg">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Einnahmenübersicht</h2>
           <FinancialEntriesTable
             entries={income}

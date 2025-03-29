@@ -81,9 +81,9 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
   const categories = isIncome ? incomeCategories : expenseCategories;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="transition-all duration-300 ease-in-out">
           <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
             Datum
           </label>
@@ -93,12 +93,12 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
             name="date"
             value={formData.date as string}
             onChange={handleChange}
-            className="input"
+            className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
             required
           />
         </div>
         
-        <div>
+        <div className="transition-all duration-300 ease-in-out">
           <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
             Betrag (€)
           </label>
@@ -110,12 +110,12 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
             onChange={handleChange}
             step="0.01"
             min="0"
-            className="input"
+            className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
             required
           />
         </div>
         
-        <div>
+        <div className="transition-all duration-300 ease-in-out">
           <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
             Kategorie
           </label>
@@ -124,7 +124,7 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
             name="category"
             value={formData.category as string}
             onChange={handleChange}
-            className="input"
+            className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
             required
           >
             <option value="">Kategorie auswählen</option>
@@ -137,7 +137,7 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
         </div>
         
         {isIncome ? (
-          <div>
+          <div className="transition-all duration-300 ease-in-out">
             <label htmlFor="client" className="block text-sm font-medium text-gray-700 mb-1">
               Mandant
             </label>
@@ -147,12 +147,12 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
               name="client"
               value={(formData as Partial<Income>).client || ''}
               onChange={handleChange}
-              className="input"
+              className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
               required
             />
           </div>
         ) : (
-          <div>
+          <div className="transition-all duration-300 ease-in-out">
             <label htmlFor="vendor" className="block text-sm font-medium text-gray-700 mb-1">
               Lieferant
             </label>
@@ -162,14 +162,14 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
               name="vendor"
               value={(formData as Partial<Expense>).vendor || ''}
               onChange={handleChange}
-              className="input"
+              className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
               required
             />
           </div>
         )}
         
         {isIncome ? (
-          <div>
+          <div className="transition-all duration-300 ease-in-out">
             <label htmlFor="invoiceNumber" className="block text-sm font-medium text-gray-700 mb-1">
               Rechnungsnummer
             </label>
@@ -179,11 +179,11 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
               name="invoiceNumber"
               value={(formData as Partial<Income>).invoiceNumber || ''}
               onChange={handleChange}
-              className="input"
+              className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
             />
           </div>
         ) : (
-          <div>
+          <div className="transition-all duration-300 ease-in-out">
             <label htmlFor="receiptNumber" className="block text-sm font-medium text-gray-700 mb-1">
               Belegnummer
             </label>
@@ -193,45 +193,49 @@ const FinancialEntryForm: React.FC<FinancialEntryFormProps> = ({
               name="receiptNumber"
               value={(formData as Partial<Expense>).receiptNumber || ''}
               onChange={handleChange}
-              className="input"
+              className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
             />
+          </div>
+        )}
+        
+        <div className="md:col-span-2 transition-all duration-300 ease-in-out">
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+            Beschreibung
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description as string}
+            onChange={handleChange}
+            rows={3}
+            className="input w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-20 transition-all duration-300 ease-in-out hover:border-primary transform hover:scale-[1.01]"
+            required
+          />
+        </div>
+        
+        {!isIncome && (
+          <div className="md:col-span-2 flex items-center transition-all duration-300 ease-in-out">
+            <input
+              type="checkbox"
+              id="taxDeductible"
+              name="taxDeductible"
+              checked={(formData as Partial<Expense>).taxDeductible || false}
+              onChange={handleChange}
+              className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary focus:ring-offset-0 transition-colors duration-300 ease-in-out cursor-pointer"
+            />
+            <label htmlFor="taxDeductible" className="ml-2 block text-sm text-gray-700 cursor-pointer">
+              Steuerlich absetzbar
+            </label>
           </div>
         )}
       </div>
       
-      <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-          Beschreibung
-        </label>
-        <textarea
-          id="description"
-          name="description"
-          value={formData.description as string}
-          onChange={handleChange}
-          rows={3}
-          className="input"
-        />
-      </div>
-      
-      {!isIncome && (
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="taxDeductible"
-            name="taxDeductible"
-            checked={(formData as Partial<Expense>).taxDeductible || false}
-            onChange={handleChange}
-            className="h-4 w-4 text-primary focus:ring-primary-500 border-gray-300 rounded"
-          />
-          <label htmlFor="taxDeductible" className="ml-2 block text-sm text-gray-700">
-            Steuerlich absetzbar
-          </label>
-        </div>
-      )}
-      
       <div className="flex justify-end">
-        <button type="submit" className="btn btn-primary">
-          {isIncome ? 'Einnahme speichern' : 'Ausgabe speichern'}
+        <button
+          type="submit"
+          className="btn btn-primary px-6 py-2 rounded-md shadow-sm transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          {initialData.id ? 'Aktualisieren' : 'Speichern'}
         </button>
       </div>
     </form>
