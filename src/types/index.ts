@@ -11,6 +11,7 @@ export interface FinancialEntry {
 export interface Income extends FinancialEntry {
   client: string;
   invoiceNumber?: string;
+  paymentStatus?: string;
 }
 
 export interface Expense extends FinancialEntry {
