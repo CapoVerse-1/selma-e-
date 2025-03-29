@@ -49,4 +49,4 @@ export interface FinancialStatistics {
     totalExpenses: number;
     balance: number;
   };
-} 
+}
