@@ -369,11 +369,11 @@ const DashboardPage = () => {
       <div className="space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
-          <div className="select-container">
+          <div className="select-container transition-all duration-300 ease-in-out hover:scale-105">
             <select
               value={year}
               onChange={(e) => setYear(Number(e.target.value))}
-              className="select select-bordered"
+              className="select select-bordered bg-white border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 ease-in-out cursor-pointer"
             >
               <option value={2022}>2022</option>
               <option value={2023}>2023</option>
@@ -384,30 +384,30 @@ const DashboardPage = () => {
 
         {/* Financial Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title flex justify-between">
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px]">
+            <div className="card-body p-6">
+              <h2 className="card-title flex justify-between items-center">
                 Einnahmen
-                <FiArrowUp className="text-success" />
+                <FiArrowUp className="text-success transition-all duration-300 ease-in-out transform group-hover:scale-110" />
               </h2>
-              <p className="text-2xl font-bold">{totalIncome.toFixed(2)} €</p>
+              <p className="text-2xl font-bold text-success-600 mt-2">{totalIncome.toFixed(2)} €</p>
             </div>
           </div>
           
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title flex justify-between">
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px]">
+            <div className="card-body p-6">
+              <h2 className="card-title flex justify-between items-center">
                 Ausgaben
-                <FiArrowDown className="text-error" />
+                <FiArrowDown className="text-error transition-all duration-300 ease-in-out transform group-hover:scale-110" />
               </h2>
-              <p className="text-2xl font-bold">{totalExpenses.toFixed(2)} €</p>
+              <p className="text-2xl font-bold text-error-600 mt-2">{totalExpenses.toFixed(2)} €</p>
             </div>
           </div>
           
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px]">
+            <div className="card-body p-6">
               <h2 className="card-title">Gewinn</h2>
-              <p className={`text-2xl font-bold ${totalProfit >= 0 ? 'text-success' : 'text-error'}`}>
+              <p className={`text-2xl font-bold mt-2 ${totalProfit >= 0 ? 'text-success-600' : 'text-error-600'}`}>
                 {totalProfit.toFixed(2)} €
               </p>
             </div>
@@ -417,9 +417,9 @@ const DashboardPage = () => {
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Monthly Income vs Expenses */}
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title mb-4">Monatliche Übersicht: Einnahmen vs. Ausgaben</h2>
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.01]">
+            <div className="card-body p-6">
+              <h2 className="card-title mb-4 text-gray-800">Monatliche Übersicht: Einnahmen vs. Ausgaben</h2>
               <div className="h-96">
                 <Bar data={monthlyChartData} options={chartOptions} />
               </div>
@@ -427,9 +427,9 @@ const DashboardPage = () => {
           </div>
 
           {/* Monthly Profit/Loss */}
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title mb-4">Monatlicher Gewinn/Verlust</h2>
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.01]">
+            <div className="card-body p-6">
+              <h2 className="card-title mb-4 text-gray-800">Monatlicher Gewinn/Verlust</h2>
               <div className="h-96">
                 <Line data={profitChartData} options={chartOptions} />
               </div>
@@ -437,9 +437,9 @@ const DashboardPage = () => {
           </div>
 
           {/* Income by Category */}
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title mb-4">Einnahmen nach Kategorie</h2>
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.01]">
+            <div className="card-body p-6">
+              <h2 className="card-title mb-4 text-gray-800">Einnahmen nach Kategorie</h2>
               <div className="h-80">
                 <Pie data={incomeByCategoryChartData} options={chartOptions} />
               </div>
@@ -447,9 +447,9 @@ const DashboardPage = () => {
           </div>
 
           {/* Expenses by Category */}
-          <div className="card bg-base-100 shadow-md">
-            <div className="card-body">
-              <h2 className="card-title mb-4">Ausgaben nach Kategorie</h2>
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-[1.01]">
+            <div className="card-body p-6">
+              <h2 className="card-title mb-4 text-gray-800">Ausgaben nach Kategorie</h2>
               <div className="h-80">
                 <Pie data={expensesByCategoryChartData} options={chartOptions} />
               </div>
