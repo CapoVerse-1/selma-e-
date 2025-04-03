@@ -7,7 +7,9 @@ import {
   FiDownload, 
   FiBarChart2, 
   FiTrendingUp, 
-  FiTrendingDown 
+  FiTrendingDown,
+  FiChevronDown,
+  FiChevronUp
 } from 'react-icons/fi';
 import { exportFinancialSummaryToExcel } from '@/utils/excelExport';
 
@@ -752,6 +754,7 @@ const ReportsPage = () => {
   const [expenses, setExpenses] = useState<Expense[]>(mockExpenseData);
   const [monthlyData, setMonthlyData] = useState<MonthlyData[]>([]);
   const [periodFilter, setPeriodFilter] = useState<string>('all');
+  const [expandedMonth, setExpandedMonth] = useState<string | null>(null);
   const [categoryData, setCategoryData] = useState<{
     incomeByCategory: Record<string, number>;
     expensesByCategory: Record<string, number>;
@@ -1047,20 +1050,151 @@ const ReportsPage = () => {
                   </tr>
                 ) : (
                   monthlyData.map((month, index) => (
-                    <tr key={`${month.year}-${month.month}`} className="transition-colors duration-200 hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                        {month.month} {month.year}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
-                        {formatCurrency(month.totalIncome)}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
-                        {formatCurrency(month.totalExpenses)}
-                      </td>
-                      <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${month.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {formatCurrency(month.balance)}
-                      </td>
-                    </tr>
+                    <React.Fragment key={`${month.year}-${month.month}`}>
+                      <tr className="transition-colors duration-200 hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                          <div className="flex items-center">
+                            <button 
+                              onClick={() => {
+                                const monthKey = `${month.year}-${month.month}`;
+                                setExpandedMonth(expandedMonth === monthKey ? null : monthKey);
+                              }}
+                              className="mr-2 text-gray-400 hover:text-gray-700 transition-colors"
+                              aria-label={expandedMonth === `${month.year}-${month.month}` ? "Collapse" : "Expand"}
+                            >
+                              {expandedMonth === `${month.year}-${month.month}` 
+                                ? <FiChevronUp className="h-4 w-4" /> 
+                                : <FiChevronDown className="h-4 w-4" />}
+                            </button>
+                            {month.month} {month.year}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                          {formatCurrency(month.totalIncome)}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
+                          {formatCurrency(month.totalExpenses)}
+                        </td>
+                        <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${month.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {formatCurrency(month.balance)}
+                        </td>
+                      </tr>
+                      {expandedMonth === `${month.year}-${month.month}` && (
+                        <tr>
+                          <td colSpan={4} className="px-0">
+                            <div className="bg-gray-50 p-4 border-t border-b border-gray-200">
+                              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <div>
+                                  <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                                    <FiTrendingUp className="mr-1 text-green-500" /> Einnahmen im {month.month} {month.year}
+                                  </h3>
+                                  <div className="overflow-x-auto bg-white rounded shadow">
+                                    <table className="min-w-full">
+                                      <thead className="bg-gray-50">
+                                        <tr>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Datum</th>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Kategorie</th>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Betrag</th>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Beschreibung</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody className="divide-y divide-gray-200">
+                                        {income
+                                          .filter(item => {
+                                            const date = new Date(item.date);
+                                            return date.getFullYear() === month.year && 
+                                                  date.getMonth() === getMonthNumber(month.month);
+                                          })
+                                          .map(item => (
+                                            <tr key={item.id} className="hover:bg-gray-50">
+                                              <td className="px-3 py-2 text-xs text-gray-700">
+                                                {new Date(item.date).toLocaleDateString('de-DE')}
+                                              </td>
+                                              <td className="px-3 py-2 text-xs text-gray-700">{item.category}</td>
+                                              <td className="px-3 py-2 text-xs font-medium text-green-600">
+                                                {formatCurrency(item.amount)}
+                                              </td>
+                                              <td className="px-3 py-2 text-xs text-gray-700">
+                                                {item.description.length > 25 
+                                                  ? `${item.description.slice(0, 25)}...` 
+                                                  : item.description}
+                                              </td>
+                                            </tr>
+                                          ))}
+                                        {income.filter(item => {
+                                          const date = new Date(item.date);
+                                          return date.getFullYear() === month.year && 
+                                                date.getMonth() === getMonthNumber(month.month);
+                                        }).length === 0 && (
+                                          <tr>
+                                            <td colSpan={4} className="px-3 py-2 text-center text-xs text-gray-500">
+                                              Keine Einnahmen in diesem Monat
+                                            </td>
+                                          </tr>
+                                        )}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                                    <FiTrendingDown className="mr-1 text-red-500" /> Ausgaben im {month.month} {month.year}
+                                  </h3>
+                                  <div className="overflow-x-auto bg-white rounded shadow">
+                                    <table className="min-w-full">
+                                      <thead className="bg-gray-50">
+                                        <tr>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Datum</th>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Kategorie</th>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Betrag</th>
+                                          <th className="px-3 py-2 text-left text-xs font-medium text-gray-500">Beschreibung</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody className="divide-y divide-gray-200">
+                                        {expenses
+                                          .filter(item => {
+                                            const date = new Date(item.date);
+                                            return date.getFullYear() === month.year && 
+                                                  date.getMonth() === getMonthNumber(month.month);
+                                          })
+                                          .map(item => (
+                                            <tr key={item.id} className="hover:bg-gray-50">
+                                              <td className="px-3 py-2 text-xs text-gray-700">
+                                                {new Date(item.date).toLocaleDateString('de-DE')}
+                                              </td>
+                                              <td className="px-3 py-2 text-xs text-gray-700">{item.category}</td>
+                                              <td className="px-3 py-2 text-xs font-medium text-red-600">
+                                                {formatCurrency(item.amount)}
+                                              </td>
+                                              <td className="px-3 py-2 text-xs text-gray-700">
+                                                {item.description.length > 25 
+                                                  ? `${item.description.slice(0, 25)}...` 
+                                                  : item.description}
+                                              </td>
+                                            </tr>
+                                          ))}
+                                        {expenses.filter(item => {
+                                          const date = new Date(item.date);
+                                          return date.getFullYear() === month.year && 
+                                                date.getMonth() === getMonthNumber(month.month);
+                                        }).length === 0 && (
+                                          <tr>
+                                            <td colSpan={4} className="px-3 py-2 text-center text-xs text-gray-500">
+                                              Keine Ausgaben in diesem Monat
+                                            </td>
+                                          </tr>
+                                        )}
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
                   ))
                 )}
                 <tr className="bg-gray-50 font-bold border-t-2 border-gray-300">
