@@ -1653,56 +1653,58 @@ const ReportsPage = () => {
             </div>
             
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 rounded-tl-md">
-                      Kategorie
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">
-                      Betrag
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 rounded-tr-md">
-                      % vom Gesamt
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {Object.entries(categoryData.incomeByCategory).length === 0 ? (
+              <div className="max-h-60 overflow-y-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50 sticky top-0 z-10">
                     <tr>
-                      <td colSpan={3} className="px-6 py-4 text-center text-sm text-gray-500">
-                        Keine Daten vorhanden
-                      </td>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-md">
+                        Kategorie
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Betrag
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-md">
+                        % vom Gesamt
+                      </th>
                     </tr>
-                  ) : (
-                    Object.entries(categoryData.incomeByCategory)
-                      .sort(([, a], [, b]) => b - a)
-                      .map(([category, amount], index, array) => (
-                        <tr key={category} className="transition-colors duration-200 hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                            {category}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
-                            {formatCurrency(amount)}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center">
-                              <span className="text-sm font-medium text-gray-800 mr-2">
-                            {(amount / getTotalIncome() * 100).toFixed(1)}%
-                              </span>
-                              <div className="w-24 bg-gray-200 rounded-full h-2">
-                                <div 
-                                  className="bg-green-500 h-2 rounded-full" 
-                                  style={{ width: `${(amount / getTotalIncome() * 100)}%` }}
-                                ></div>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {Object.entries(categoryData.incomeByCategory).length === 0 ? (
+                      <tr>
+                        <td colSpan={3} className="px-6 py-4 text-center text-sm text-gray-500">
+                          Keine Daten vorhanden
+                        </td>
+                      </tr>
+                    ) : (
+                      Object.entries(categoryData.incomeByCategory)
+                        .sort(([, a], [, b]) => b - a)
+                        .map(([category, amount], index, array) => (
+                          <tr key={category} className="transition-colors duration-200 hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                              {category}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
+                              {formatCurrency(amount)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <span className="text-sm font-medium text-gray-800 mr-2">
+                              {(amount / getTotalIncome() * 100).toFixed(1)}%
+                                </span>
+                                <div className="w-24 bg-gray-200 rounded-full h-2">
+                                  <div 
+                                    className="bg-green-500 h-2 rounded-full" 
+                                    style={{ width: `${(amount / getTotalIncome() * 100)}%` }}
+                                  ></div>
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                  )}
-                </tbody>
-              </table>
+                            </td>
+                          </tr>
+                        ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
           
@@ -1715,56 +1717,58 @@ const ReportsPage = () => {
             </div>
             
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 rounded-tl-md">
-                      Kategorie
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50">
-                      Betrag
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 rounded-tr-md">
-                      % vom Gesamt
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {Object.entries(categoryData.expensesByCategory).length === 0 ? (
+              <div className="max-h-60 overflow-y-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50 sticky top-0 z-10">
                     <tr>
-                      <td colSpan={3} className="px-6 py-4 text-center text-sm text-gray-500">
-                        Keine Daten vorhanden
-                      </td>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-md">
+                        Kategorie
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Betrag
+                      </th>
+                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-md">
+                        % vom Gesamt
+                      </th>
                     </tr>
-                  ) : (
-                    Object.entries(categoryData.expensesByCategory)
-                      .sort(([, a], [, b]) => b - a)
-                      .map(([category, amount], index, array) => (
-                        <tr key={category} className="transition-colors duration-200 hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
-                            {category}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
-                            {formatCurrency(amount)}
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center">
-                              <span className="text-sm font-medium text-gray-800 mr-2">
-                            {(amount / getTotalExpenses() * 100).toFixed(1)}%
-                              </span>
-                              <div className="w-24 bg-gray-200 rounded-full h-2">
-                                <div 
-                                  className="bg-red-500 h-2 rounded-full" 
-                                  style={{ width: `${(amount / getTotalExpenses() * 100)}%` }}
-                                ></div>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {Object.entries(categoryData.expensesByCategory).length === 0 ? (
+                      <tr>
+                        <td colSpan={3} className="px-6 py-4 text-center text-sm text-gray-500">
+                          Keine Daten vorhanden
+                        </td>
+                      </tr>
+                    ) : (
+                      Object.entries(categoryData.expensesByCategory)
+                        .sort(([, a], [, b]) => b - a)
+                        .map(([category, amount], index, array) => (
+                          <tr key={category} className="transition-colors duration-200 hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                              {category}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
+                              {formatCurrency(amount)}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center">
+                                <span className="text-sm font-medium text-gray-800 mr-2">
+                              {(amount / getTotalExpenses() * 100).toFixed(1)}%
+                                </span>
+                                <div className="w-24 bg-gray-200 rounded-full h-2">
+                                  <div 
+                                    className="bg-red-500 h-2 rounded-full" 
+                                    style={{ width: `${(amount / getTotalExpenses() * 100)}%` }}
+                                  ></div>
+                                </div>
                               </div>
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                  )}
-                </tbody>
-              </table>
+                            </td>
+                          </tr>
+                        ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
