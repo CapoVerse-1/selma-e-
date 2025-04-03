@@ -1490,11 +1490,13 @@ const ReportsPage = () => {
                             </button>
                             <div>
                               <div className="font-medium">{month.month} {month.year}</div>
-                              <div className="text-xs mt-1 text-gray-500">
-                                <span className="text-green-600 font-medium">{formatCurrency(month.totalIncome)}</span>
-                                {" / "}
-                                <span className="text-red-600 font-medium">{formatCurrency(month.totalExpenses)}</span>
-                              </div>
+                              {expandedMonths.includes(`${month.year}-${month.month}`) && (
+                                <div className="text-xs mt-1 text-gray-500">
+                                  <span className="text-green-600 font-medium">{formatCurrency(month.totalIncome)}</span>
+                                  {" / "}
+                                  <span className="text-red-600 font-medium">{formatCurrency(month.totalExpenses)}</span>
+                                </div>
+                              )}
                             </div>
                           </div>
                         </td>
