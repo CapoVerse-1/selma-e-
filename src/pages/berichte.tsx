@@ -751,7 +751,7 @@ const ReportsPage = () => {
   const [income, setIncome] = useState<Income[]>(mockIncomeData);
   const [expenses, setExpenses] = useState<Expense[]>(mockExpenseData);
   const [monthlyData, setMonthlyData] = useState<MonthlyData[]>([]);
-  const [periodFilter, setPeriodFilter] = useState<string>('thisYear');
+  const [periodFilter, setPeriodFilter] = useState<string>('all');
   const [categoryData, setCategoryData] = useState<{
     incomeByCategory: Record<string, number>;
     expensesByCategory: Record<string, number>;
