@@ -13,6 +13,43 @@ import {
 } from 'react-icons/fi';
 import { exportFinancialSummaryToExcel } from '@/utils/excelExport';
 
+// CSS für automatisch verschwindende Scrollbars
+const scrollbarStyles = `
+  /* Hide scrollbar by default */
+  .auto-hide-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+    opacity: 0;
+  }
+  
+  .auto-hide-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(203, 213, 225, 0);
+    border-radius: 4px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  /* Show scrollbar when scrolling */
+  .auto-hide-scrollbar:hover::-webkit-scrollbar-thumb,
+  .auto-hide-scrollbar:active::-webkit-scrollbar-thumb,
+  .auto-hide-scrollbar:focus::-webkit-scrollbar-thumb,
+  .auto-hide-scrollbar.scrolling::-webkit-scrollbar-thumb {
+    background-color: rgba(203, 213, 225, 0.8);
+  }
+  
+  /* For Firefox */
+  .auto-hide-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  
+  .auto-hide-scrollbar:hover,
+  .auto-hide-scrollbar:active,
+  .auto-hide-scrollbar:focus,
+  .auto-hide-scrollbar.scrolling {
+    scrollbar-color: rgba(203, 213, 225, 0.8) transparent;
+  }
+`;
+
 // Mock data - in a real app, this would come from a database
 const mockIncomeData: Income[] = [
   // März 2023
@@ -1662,7 +1699,21 @@ const ReportsPage = () => {
             </div>
             
             <div className="overflow-x-auto">
-              <div className="max-h-60 overflow-y-auto">
+              <style jsx>{scrollbarStyles}</style>
+              <div 
+                className="max-h-60 overflow-y-auto auto-hide-scrollbar" 
+                onScroll={(e) => {
+                  const element = e.currentTarget;
+                  element.classList.add('scrolling');
+                  
+                  // Remove the class after 2 seconds of no scrolling
+                  clearTimeout(element.getAttribute('data-scroll-timeout') as unknown as number);
+                  const timeoutId = setTimeout(() => {
+                    element.classList.remove('scrolling');
+                  }, 2000);
+                  element.setAttribute('data-scroll-timeout', timeoutId.toString());
+                }}
+              >
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50 sticky top-0 z-10">
                     <tr>
@@ -1726,7 +1777,20 @@ const ReportsPage = () => {
             </div>
             
             <div className="overflow-x-auto">
-              <div className="max-h-60 overflow-y-auto">
+              <div 
+                className="max-h-60 overflow-y-auto auto-hide-scrollbar" 
+                onScroll={(e) => {
+                  const element = e.currentTarget;
+                  element.classList.add('scrolling');
+                  
+                  // Remove the class after 2 seconds of no scrolling
+                  clearTimeout(element.getAttribute('data-scroll-timeout') as unknown as number);
+                  const timeoutId = setTimeout(() => {
+                    element.classList.remove('scrolling');
+                  }, 2000);
+                  element.setAttribute('data-scroll-timeout', timeoutId.toString());
+                }}
+              >
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50 sticky top-0 z-10">
                     <tr>
