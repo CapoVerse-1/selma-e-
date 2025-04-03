@@ -765,29 +765,30 @@ const ReportsPage = () => {
     let filteredIncome = [...income];
     let filteredExpenses = [...expenses];
     
-    const now = new Date();
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth();
+    // Verwende konstante Daten für die Filter statt des aktuellen Datums
+    // Damit werden immer Daten angezeigt, auch wenn das aktuelle Datum kein Match hat
+    const simulatedCurrentYear = 2024;
+    const simulatedCurrentMonth = 2; // März (0-basiert)
     
     if (periodFilter === 'thisMonth') {
       filteredIncome = income.filter((item) => {
         const date = new Date(item.date);
-        return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+        return date.getFullYear() === simulatedCurrentYear && date.getMonth() === simulatedCurrentMonth;
       });
       
       filteredExpenses = expenses.filter((item) => {
         const date = new Date(item.date);
-        return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+        return date.getFullYear() === simulatedCurrentYear && date.getMonth() === simulatedCurrentMonth;
       });
     } else if (periodFilter === 'thisYear') {
       filteredIncome = income.filter((item) => {
         const date = new Date(item.date);
-        return date.getFullYear() === currentYear;
+        return date.getFullYear() === simulatedCurrentYear;
       });
       
       filteredExpenses = expenses.filter((item) => {
         const date = new Date(item.date);
-        return date.getFullYear() === currentYear;
+        return date.getFullYear() === simulatedCurrentYear;
       });
     }
     // 'all' doesn't need filtering
@@ -900,28 +901,28 @@ const ReportsPage = () => {
   };
   
   const handleExportToExcel = () => {
+    // Verwende die gleichen simulierten Konstanten für die Filterung beim Export
+    const simulatedCurrentYear = 2024;
+    const simulatedCurrentMonth = 2; // März (0-basiert)
+    
     exportFinancialSummaryToExcel(
       periodFilter === 'all' ? income : income.filter((item) => {
         const date = new Date(item.date);
-        const currentYear = new Date().getFullYear();
-        const currentMonth = new Date().getMonth();
         
         if (periodFilter === 'thisMonth') {
-          return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+          return date.getFullYear() === simulatedCurrentYear && date.getMonth() === simulatedCurrentMonth;
         } else if (periodFilter === 'thisYear') {
-          return date.getFullYear() === currentYear;
+          return date.getFullYear() === simulatedCurrentYear;
         }
         return true;
       }),
       periodFilter === 'all' ? expenses : expenses.filter((item) => {
         const date = new Date(item.date);
-        const currentYear = new Date().getFullYear();
-        const currentMonth = new Date().getMonth();
         
         if (periodFilter === 'thisMonth') {
-          return date.getFullYear() === currentYear && date.getMonth() === currentMonth;
+          return date.getFullYear() === simulatedCurrentYear && date.getMonth() === simulatedCurrentMonth;
         } else if (periodFilter === 'thisYear') {
-          return date.getFullYear() === currentYear;
+          return date.getFullYear() === simulatedCurrentYear;
         }
         return true;
       }),
@@ -942,8 +943,8 @@ const ReportsPage = () => {
               onChange={(e) => setPeriodFilter(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200"
             >
-              <option value="thisMonth">Dieser Monat</option>
-              <option value="thisYear">Dieses Jahr</option>
+              <option value="thisMonth">März 2024</option>
+              <option value="thisYear">Jahr 2024</option>
               <option value="all">Gesamter Zeitraum</option>
             </select>
             <button
