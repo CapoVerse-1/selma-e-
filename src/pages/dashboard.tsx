@@ -384,29 +384,29 @@ const DashboardPage = () => {
 
         {/* Financial Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px]">
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px] hover:bg-gray-50 hover:border-primary-light cursor-pointer">
             <div className="card-body p-6">
               <h2 className="card-title flex justify-between items-center">
-                Einnahmen
+                Einnahmen (Jahresübersicht)
                 <FiArrowUp className="text-success transition-all duration-300 ease-in-out transform group-hover:scale-110" />
               </h2>
               <p className="text-2xl font-bold text-success-600 mt-2">{totalIncome.toFixed(2)} €</p>
             </div>
           </div>
           
-          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px]">
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px] hover:bg-gray-50 hover:border-primary-light cursor-pointer">
             <div className="card-body p-6">
               <h2 className="card-title flex justify-between items-center">
-                Ausgaben
+                Ausgaben (Jahresübersicht)
                 <FiArrowDown className="text-error transition-all duration-300 ease-in-out transform group-hover:scale-110" />
               </h2>
               <p className="text-2xl font-bold text-error-600 mt-2">{totalExpenses.toFixed(2)} €</p>
             </div>
           </div>
           
-          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px]">
+          <div className="card bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-4px] hover:bg-gray-50 hover:border-primary-light cursor-pointer">
             <div className="card-body p-6">
-              <h2 className="card-title">Gewinn</h2>
+              <h2 className="card-title">Bilanz (Jahresübersicht)</h2>
               <p className={`text-2xl font-bold mt-2 ${totalProfit >= 0 ? 'text-success-600' : 'text-error-600'}`}>
                 {totalProfit.toFixed(2)} €
               </p>
