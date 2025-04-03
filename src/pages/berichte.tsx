@@ -49,6 +49,106 @@ const mockIncomeData: Income[] = [
     createdAt: '2023-03-22T11:00:00Z',
     updatedAt: '2023-03-22T11:00:00Z',
   },
+  // Zusätzliche Einträge für März 2023
+  {
+    id: '101',
+    date: '2023-03-02',
+    amount: 620.00,
+    category: 'Druckaufträge',
+    description: 'Flyer für lokale Veranstaltung',
+    client: 'Stadtmarketing GmbH',
+    invoiceNumber: 'INV-2023-101',
+    createdAt: '2023-03-02T09:30:00Z',
+    updatedAt: '2023-03-02T09:30:00Z',
+  },
+  {
+    id: '102',
+    date: '2023-03-04',
+    amount: 850.00,
+    category: 'Großformatdruck',
+    description: 'Poster für Galerieeröffnung',
+    client: 'Kunstgalerie Modern',
+    invoiceNumber: 'INV-2023-102',
+    createdAt: '2023-03-04T11:15:00Z',
+    updatedAt: '2023-03-04T11:15:00Z',
+  },
+  {
+    id: '103',
+    date: '2023-03-08',
+    amount: 320.00,
+    category: 'Digitaldruck',
+    description: 'Broschüren für Patienteninformation',
+    client: 'Praxis Dr. Schneider',
+    invoiceNumber: 'INV-2023-103',
+    createdAt: '2023-03-08T14:00:00Z',
+    updatedAt: '2023-03-08T14:00:00Z',
+  },
+  {
+    id: '104',
+    date: '2023-03-12',
+    amount: 480.00,
+    category: 'Buchdruck',
+    description: 'Selbstpubliziertes Buch',
+    client: 'Autor Klaus Weber',
+    invoiceNumber: 'INV-2023-104',
+    createdAt: '2023-03-12T10:45:00Z',
+    updatedAt: '2023-03-12T10:45:00Z',
+  },
+  {
+    id: '105',
+    date: '2023-03-18',
+    amount: 290.00,
+    category: 'Siebdruck',
+    description: 'Werbegeschenke mit Logo',
+    client: 'Versicherung Müller AG',
+    invoiceNumber: 'INV-2023-105',
+    createdAt: '2023-03-18T15:30:00Z',
+    updatedAt: '2023-03-18T15:30:00Z',
+  },
+  {
+    id: '106',
+    date: '2023-03-24',
+    amount: 740.00,
+    category: 'Druckaufträge',
+    description: 'Katalog für Frühjahrssortiment',
+    client: 'Modehaus Chic',
+    invoiceNumber: 'INV-2023-106',
+    createdAt: '2023-03-24T13:15:00Z',
+    updatedAt: '2023-03-24T13:15:00Z',
+  },
+  {
+    id: '107',
+    date: '2023-03-27',
+    amount: 920.00,
+    category: 'Großformatdruck',
+    description: 'Baustellenbanner',
+    client: 'Bau & Projektierung GmbH',
+    invoiceNumber: 'INV-2023-107',
+    createdAt: '2023-03-27T09:00:00Z',
+    updatedAt: '2023-03-27T09:00:00Z',
+  },
+  {
+    id: '108',
+    date: '2023-03-29',
+    amount: 540.00,
+    category: 'Digitaldruck',
+    description: 'Schulungsunterlagen',
+    client: 'Bildungszentrum Zukunft',
+    invoiceNumber: 'INV-2023-108',
+    createdAt: '2023-03-29T14:45:00Z',
+    updatedAt: '2023-03-29T14:45:00Z',
+  },
+  {
+    id: '109',
+    date: '2023-03-30',
+    amount: 380.00,
+    category: 'Siebdruck',
+    description: 'T-Shirts für Sportverein',
+    client: 'TSV Blau-Weiß',
+    invoiceNumber: 'INV-2023-109',
+    createdAt: '2023-03-30T10:30:00Z',
+    updatedAt: '2023-03-30T10:30:00Z',
+  },
   // April 2023
   {
     id: '4',
@@ -82,6 +182,106 @@ const mockIncomeData: Income[] = [
     invoiceNumber: 'INV-2023-006',
     createdAt: '2023-04-18T10:30:00Z',
     updatedAt: '2023-04-18T10:30:00Z',
+  },
+  // Zusätzliche Einträge für April 2023
+  {
+    id: '110',
+    date: '2023-04-02',
+    amount: 780.00,
+    category: 'Druckaufträge',
+    description: 'Jahresbericht mit Bindung',
+    client: 'Steuerkanzlei Hoffmann',
+    invoiceNumber: 'INV-2023-110',
+    createdAt: '2023-04-02T11:30:00Z',
+    updatedAt: '2023-04-02T11:30:00Z',
+  },
+  {
+    id: '111',
+    date: '2023-04-04',
+    amount: 920.00,
+    category: 'Großformatdruck',
+    description: 'Werbeplakat für Kinopremiere',
+    client: 'CineView Entertainment',
+    invoiceNumber: 'INV-2023-111',
+    createdAt: '2023-04-04T14:15:00Z',
+    updatedAt: '2023-04-04T14:15:00Z',
+  },
+  {
+    id: '112',
+    date: '2023-04-07',
+    amount: 450.00,
+    category: 'Digitaldruck',
+    description: 'Hochzeitseinladungen',
+    client: 'Familie Wagner',
+    invoiceNumber: 'INV-2023-112',
+    createdAt: '2023-04-07T09:45:00Z',
+    updatedAt: '2023-04-07T09:45:00Z',
+  },
+  {
+    id: '113',
+    date: '2023-04-10',
+    amount: 680.00,
+    category: 'Buchdruck',
+    description: 'Promotion-Exemplare',
+    client: 'Verlag Neuzeit',
+    invoiceNumber: 'INV-2023-113',
+    createdAt: '2023-04-10T13:00:00Z',
+    updatedAt: '2023-04-10T13:00:00Z',
+  },
+  {
+    id: '114',
+    date: '2023-04-14',
+    amount: 590.00,
+    category: 'Siebdruck',
+    description: 'Messetaschen mit Logo',
+    client: 'Eventmanagement Konferenz',
+    invoiceNumber: 'INV-2023-114',
+    createdAt: '2023-04-14T15:45:00Z',
+    updatedAt: '2023-04-14T15:45:00Z',
+  },
+  {
+    id: '115',
+    date: '2023-04-20',
+    amount: 820.00,
+    category: 'Druckaufträge',
+    description: 'Imagebroschüre Neuauflage',
+    client: 'Architekturbüro Modern',
+    invoiceNumber: 'INV-2023-115',
+    createdAt: '2023-04-20T10:15:00Z',
+    updatedAt: '2023-04-20T10:15:00Z',
+  },
+  {
+    id: '116',
+    date: '2023-04-23',
+    amount: 1100.00,
+    category: 'Großformatdruck',
+    description: 'Fassadenwerbung',
+    client: 'Autohaus Premium',
+    invoiceNumber: 'INV-2023-116',
+    createdAt: '2023-04-23T09:30:00Z',
+    updatedAt: '2023-04-23T09:30:00Z',
+  },
+  {
+    id: '117',
+    date: '2023-04-25',
+    amount: 480.00,
+    category: 'Digitaldruck',
+    description: 'Personalisierte Notizbücher',
+    client: 'Coaching Academy',
+    invoiceNumber: 'INV-2023-117',
+    createdAt: '2023-04-25T14:00:00Z',
+    updatedAt: '2023-04-25T14:00:00Z',
+  },
+  {
+    id: '118',
+    date: '2023-04-28',
+    amount: 750.00,
+    category: 'Siebdruck',
+    description: 'Firmenuniformen',
+    client: 'Gastro Service GmbH',
+    invoiceNumber: 'INV-2023-118',
+    createdAt: '2023-04-28T11:45:00Z',
+    updatedAt: '2023-04-28T11:45:00Z',
   },
   // Mai 2023
   {
@@ -375,6 +575,115 @@ const mockExpenseData: Expense[] = [
     createdAt: '2023-03-18T14:30:00Z',
     updatedAt: '2023-03-18T14:30:00Z',
   },
+  // Zusätzliche Einträge für März 2023
+  {
+    id: '201',
+    date: '2023-03-02',
+    amount: 85.00,
+    category: 'Druckmaterial',
+    description: 'Spezialpapier Premium',
+    vendor: 'Paper Wholesale GmbH',
+    receiptNumber: 'R-2023-201',
+    taxDeductible: true,
+    createdAt: '2023-03-02T10:15:00Z',
+    updatedAt: '2023-03-02T10:15:00Z',
+  },
+  {
+    id: '202',
+    date: '2023-03-04',
+    amount: 120.00,
+    category: 'Büromaterial',
+    description: 'Schreibwaren und Organisationsmaterial',
+    vendor: 'Office Center GmbH',
+    receiptNumber: 'R-2023-202',
+    taxDeductible: true,
+    createdAt: '2023-03-04T13:30:00Z',
+    updatedAt: '2023-03-04T13:30:00Z',
+  },
+  {
+    id: '203',
+    date: '2023-03-07',
+    amount: 45.00,
+    category: 'Marketing',
+    description: 'Social Media Werbung',
+    vendor: 'Online Marketing Pro',
+    receiptNumber: 'R-2023-203',
+    taxDeductible: true,
+    createdAt: '2023-03-07T09:00:00Z',
+    updatedAt: '2023-03-07T09:00:00Z',
+  },
+  {
+    id: '204',
+    date: '2023-03-11',
+    amount: 65.00,
+    category: 'Infrastruktur',
+    description: 'Hosting & Domain-Gebühren',
+    vendor: 'Web Services Pro',
+    receiptNumber: 'R-2023-204',
+    taxDeductible: true,
+    createdAt: '2023-03-11T11:30:00Z',
+    updatedAt: '2023-03-11T11:30:00Z',
+  },
+  {
+    id: '205',
+    date: '2023-03-15',
+    amount: 320.00,
+    category: 'Druckmaterial',
+    description: 'Spezialfarben für Siebdruck',
+    vendor: 'ColorExpert GmbH',
+    receiptNumber: 'R-2023-205',
+    taxDeductible: true,
+    createdAt: '2023-03-15T14:45:00Z',
+    updatedAt: '2023-03-15T14:45:00Z',
+  },
+  {
+    id: '206',
+    date: '2023-03-20',
+    amount: 250.00,
+    category: 'Maschinenwartung',
+    description: 'Kleinere Reparatur Digitaldrucker',
+    vendor: 'PrintTech Service GmbH',
+    receiptNumber: 'R-2023-206',
+    taxDeductible: true,
+    createdAt: '2023-03-20T10:00:00Z',
+    updatedAt: '2023-03-20T10:00:00Z',
+  },
+  {
+    id: '207',
+    date: '2023-03-24',
+    amount: 130.00,
+    category: 'Büromaterial',
+    description: 'Bindegeräte-Zubehör',
+    vendor: 'Office Supply Store',
+    receiptNumber: 'R-2023-207',
+    taxDeductible: true,
+    createdAt: '2023-03-24T13:15:00Z',
+    updatedAt: '2023-03-24T13:15:00Z',
+  },
+  {
+    id: '208',
+    date: '2023-03-28',
+    amount: 75.00,
+    category: 'Marketing',
+    description: 'Branchenbucheintrag',
+    vendor: 'Branchenverzeichnis Druck',
+    receiptNumber: 'R-2023-208',
+    taxDeductible: true,
+    createdAt: '2023-03-28T15:45:00Z',
+    updatedAt: '2023-03-28T15:45:00Z',
+  },
+  {
+    id: '209',
+    date: '2023-03-31',
+    amount: 190.00,
+    category: 'Betriebskosten',
+    description: 'Stromkosten Druckwerkstatt',
+    vendor: 'Energieversorger Stadt',
+    receiptNumber: 'R-2023-209',
+    taxDeductible: true,
+    createdAt: '2023-03-31T09:30:00Z',
+    updatedAt: '2023-03-31T09:30:00Z',
+  },
   // April 2023
   {
     id: '4',
@@ -410,6 +719,115 @@ const mockExpenseData: Expense[] = [
     taxDeductible: true,
     createdAt: '2023-04-22T10:15:00Z',
     updatedAt: '2023-04-22T10:15:00Z',
+  },
+  // Zusätzliche Einträge für April 2023
+  {
+    id: '210',
+    date: '2023-04-03',
+    amount: 95.00,
+    category: 'Druckmaterial',
+    description: 'Verpackungsmaterial für Versand',
+    vendor: 'Verpackung Großhandel',
+    receiptNumber: 'R-2023-210',
+    taxDeductible: true,
+    createdAt: '2023-04-03T11:00:00Z',
+    updatedAt: '2023-04-03T11:00:00Z',
+  },
+  {
+    id: '211',
+    date: '2023-04-05',
+    amount: 180.00,
+    category: 'Fortbildung',
+    description: 'Online-Kurs neue Drucktechniken',
+    vendor: 'Digital Learning Academy',
+    receiptNumber: 'R-2023-211',
+    taxDeductible: true,
+    createdAt: '2023-04-05T14:30:00Z',
+    updatedAt: '2023-04-05T14:30:00Z',
+  },
+  {
+    id: '212',
+    date: '2023-04-08',
+    amount: 140.00,
+    category: 'Betriebskosten',
+    description: 'Telefonkosten & Internet',
+    vendor: 'Telekom Business',
+    receiptNumber: 'R-2023-212',
+    taxDeductible: true,
+    createdAt: '2023-04-08T09:15:00Z',
+    updatedAt: '2023-04-08T09:15:00Z',
+  },
+  {
+    id: '213',
+    date: '2023-04-12',
+    amount: 75.00,
+    category: 'Marketing',
+    description: 'Anzeige Lokalzeitung',
+    vendor: 'Stadtanzeiger Verlag',
+    receiptNumber: 'R-2023-213',
+    taxDeductible: true,
+    createdAt: '2023-04-12T13:45:00Z',
+    updatedAt: '2023-04-12T13:45:00Z',
+  },
+  {
+    id: '214',
+    date: '2023-04-15',
+    amount: 290.00,
+    category: 'Druckmaterial',
+    description: 'Spezialfolien für Großformatdruck',
+    vendor: 'Print Supply Store',
+    receiptNumber: 'R-2023-214',
+    taxDeductible: true,
+    createdAt: '2023-04-15T10:30:00Z',
+    updatedAt: '2023-04-15T10:30:00Z',
+  },
+  {
+    id: '215',
+    date: '2023-04-18',
+    amount: 110.00,
+    category: 'Versicherungen',
+    description: 'Zusatzversicherung Maschinen',
+    vendor: 'Gewerbeversicherung Plus',
+    receiptNumber: 'R-2023-215',
+    taxDeductible: true,
+    createdAt: '2023-04-18T15:00:00Z',
+    updatedAt: '2023-04-18T15:00:00Z',
+  },
+  {
+    id: '216',
+    date: '2023-04-24',
+    amount: 220.00,
+    category: 'Maschinenwartung',
+    description: 'Ersatzteile Bindegerät',
+    vendor: 'PrintTech Service GmbH',
+    receiptNumber: 'R-2023-216',
+    taxDeductible: true,
+    createdAt: '2023-04-24T11:15:00Z',
+    updatedAt: '2023-04-24T11:15:00Z',
+  },
+  {
+    id: '217',
+    date: '2023-04-27',
+    amount: 85.00,
+    category: 'Büromaterial',
+    description: 'Archivierungssystem',
+    vendor: 'Office Center GmbH',
+    receiptNumber: 'R-2023-217',
+    taxDeductible: true,
+    createdAt: '2023-04-27T14:45:00Z',
+    updatedAt: '2023-04-27T14:45:00Z',
+  },
+  {
+    id: '218',
+    date: '2023-04-30',
+    amount: 160.00,
+    category: 'Betriebskosten',
+    description: 'Wasserkosten Druckerei',
+    vendor: 'Stadtwerke',
+    receiptNumber: 'R-2023-218',
+    taxDeductible: true,
+    createdAt: '2023-04-30T09:00:00Z',
+    updatedAt: '2023-04-30T09:00:00Z',
   },
   // Mai 2023
   {
@@ -968,9 +1386,9 @@ const ReportsPage = () => {
                 <FiTrendingUp className="text-xl" />
               </div>
               <div>
-                <h3 className="text-lg font-medium text-gray-700">Einnahmen</h3>
+              <h3 className="text-lg font-medium text-gray-700">Einnahmen</h3>
                 <p className="text-2xl font-bold text-green-600">{formatCurrency(getTotalIncome())}</p>
-              </div>
+            </div>
             </div>
             <div className="h-1 w-full bg-gray-200 rounded-full mt-2">
               <div 
@@ -986,9 +1404,9 @@ const ReportsPage = () => {
                 <FiTrendingDown className="text-xl" />
               </div>
               <div>
-                <h3 className="text-lg font-medium text-gray-700">Ausgaben</h3>
+              <h3 className="text-lg font-medium text-gray-700">Ausgaben</h3>
                 <p className="text-2xl font-bold text-red-600">{formatCurrency(getTotalExpenses())}</p>
-              </div>
+            </div>
             </div>
             <div className="h-1 w-full bg-gray-200 rounded-full mt-2">
               <div 
@@ -1002,12 +1420,12 @@ const ReportsPage = () => {
             <div className="flex items-center mb-4">
               <div className="p-3 rounded-full bg-blue-100 text-blue-500 mr-4">
                 <FiBarChart2 className="text-xl" />
-              </div>
+            </div>
               <div>
                 <h3 className="text-lg font-medium text-gray-700">Bilanz</h3>
                 <p className={`text-2xl font-bold ${getBalance() >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                  {formatCurrency(getBalance())}
-                </p>
+              {formatCurrency(getBalance())}
+            </p>
               </div>
             </div>
             <div className="h-1 w-full bg-gray-200 rounded-full mt-2">
@@ -1070,19 +1488,19 @@ const ReportsPage = () => {
                                 ? <FiChevronUp className="h-4 w-4" /> 
                                 : <FiChevronDown className="h-4 w-4" />}
                             </button>
-                            {month.month} {month.year}
+                        {month.month} {month.year}
                           </div>
-                        </td>
+                      </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
-                          {formatCurrency(month.totalIncome)}
-                        </td>
+                        {formatCurrency(month.totalIncome)}
+                      </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
-                          {formatCurrency(month.totalExpenses)}
-                        </td>
+                        {formatCurrency(month.totalExpenses)}
+                      </td>
                         <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${month.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          {formatCurrency(month.balance)}
-                        </td>
-                      </tr>
+                        {formatCurrency(month.balance)}
+                      </td>
+                    </tr>
                       {expandedMonths.includes(`${month.year}-${month.month}`) && (
                         <tr>
                           <td colSpan={4} className="px-0">
@@ -1270,7 +1688,7 @@ const ReportsPage = () => {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <span className="text-sm font-medium text-gray-800 mr-2">
-                                {(amount / getTotalIncome() * 100).toFixed(1)}%
+                            {(amount / getTotalIncome() * 100).toFixed(1)}%
                               </span>
                               <div className="w-24 bg-gray-200 rounded-full h-2">
                                 <div 
@@ -1332,7 +1750,7 @@ const ReportsPage = () => {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <span className="text-sm font-medium text-gray-800 mr-2">
-                                {(amount / getTotalExpenses() * 100).toFixed(1)}%
+                            {(amount / getTotalExpenses() * 100).toFixed(1)}%
                               </span>
                               <div className="w-24 bg-gray-200 rounded-full h-2">
                                 <div 
