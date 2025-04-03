@@ -1488,19 +1488,26 @@ const ReportsPage = () => {
                                 ? <FiChevronUp className="h-4 w-4" /> 
                                 : <FiChevronDown className="h-4 w-4" />}
                             </button>
-                        {month.month} {month.year}
+                            <div>
+                              <div className="font-medium">{month.month} {month.year}</div>
+                              <div className="text-xs mt-1 text-gray-500">
+                                <span className="text-green-600 font-medium">{formatCurrency(month.totalIncome)}</span>
+                                {" / "}
+                                <span className="text-red-600 font-medium">{formatCurrency(month.totalExpenses)}</span>
+                              </div>
+                            </div>
                           </div>
-                      </td>
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">
-                        {formatCurrency(month.totalIncome)}
-                      </td>
+                          {formatCurrency(month.totalIncome)}
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600">
-                        {formatCurrency(month.totalExpenses)}
-                      </td>
+                          {formatCurrency(month.totalExpenses)}
+                        </td>
                         <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium ${month.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {formatCurrency(month.balance)}
-                      </td>
-                    </tr>
+                          {formatCurrency(month.balance)}
+                        </td>
+                      </tr>
                       {expandedMonths.includes(`${month.year}-${month.month}`) && (
                         <tr>
                           <td colSpan={4} className="px-0">
