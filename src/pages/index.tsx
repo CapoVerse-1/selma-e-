@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import { Income, Expense, MonthlyData } from '@/types';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
-import { FiArrowUpRight, FiArrowDownRight, FiDollarSign } from 'react-icons/fi';
+import { FiArrowUpRight, FiArrowDownRight, FiDollarSign, FiDownload } from 'react-icons/fi';
 import { exportFinancialSummaryToExcel } from '@/utils/excelExport';
 
 // Mock data - in a real app, this would come from a database
@@ -198,9 +198,9 @@ const Dashboard = () => {
           <h1 className="text-2xl font-semibold text-gray-800">Dashboard</h1>
           <button 
             onClick={handleExportToExcel}
-            className="btn btn-outline flex items-center"
+            className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-4 py-2 border border-gray-300"
           >
-            <FiDollarSign className="mr-2" />
+            <FiDownload className="mr-2 transition-transform duration-300 group-hover:translate-y-[1px]" />
             Als Excel exportieren
           </button>
         </div>
