@@ -14,171 +14,50 @@ import {
   FiTrendingDown
 } from 'react-icons/fi';
 import { exportFinancialSummaryToExcel } from '@/utils/excelExport';
-
-// Mock data - in a real app, this would come from a database
-const mockIncomeData: Income[] = [
-  {
-    id: '1',
-    date: '2023-03-10',
-    amount: 1500.00,
-    category: 'Druckaufträge',
-    description: 'Broschüren-Druck für Marketingkampagne',
-    client: 'Schmidt GmbH',
-    invoiceNumber: 'INV-2023-001',
-    createdAt: '2023-03-10T10:00:00Z',
-    updatedAt: '2023-03-10T10:00:00Z',
-  },
-  {
-    id: '2',
-    date: '2023-03-15',
-    amount: 950.00,
-    category: 'Digitaldruck',
-    description: 'Visitenkarten und Briefpapier',
-    client: 'M. Müller',
-    invoiceNumber: 'INV-2023-002',
-    createdAt: '2023-03-15T14:30:00Z',
-    updatedAt: '2023-03-15T14:30:00Z',
-  },
-  {
-    id: '3',
-    date: '2023-04-05',
-    amount: 2200.00,
-    category: 'Großformatdruck',
-    description: 'Messebanner und Displays',
-    client: 'Tech Solutions AG',
-    invoiceNumber: 'INV-2023-003',
-    createdAt: '2023-04-05T09:15:00Z',
-    updatedAt: '2023-04-05T09:15:00Z',
-  },
-];
-
-const mockExpenseData: Expense[] = [
-  {
-    id: '1',
-    date: '2023-03-05',
-    amount: 450.00,
-    category: 'Büromiete',
-    description: 'Monatsmiete März',
-    vendor: 'Immobilien Verwaltung GmbH',
-    taxDeductible: true,
-    createdAt: '2023-03-05T08:00:00Z',
-    updatedAt: '2023-03-05T08:00:00Z',
-  },
-  {
-    id: '2',
-    date: '2023-03-12',
-    amount: 120.00,
-    category: 'Druckmaterial',
-    description: 'Toner und Spezialpapier',
-    vendor: 'Print Supply Store',
-    receiptNumber: 'R-2023-001',
-    taxDeductible: true,
-    createdAt: '2023-03-12T11:45:00Z',
-    updatedAt: '2023-03-12T11:45:00Z',
-  },
-  {
-    id: '3',
-    date: '2023-04-01',
-    amount: 350.00,
-    category: 'Maschinenwartung',
-    description: 'Wartung Digitaldrucker',
-    vendor: 'PrintTech Service GmbH',
-    receiptNumber: 'R-2023-002',
-    taxDeductible: true,
-    createdAt: '2023-04-01T15:20:00Z',
-    updatedAt: '2023-04-01T15:20:00Z',
-  },
-];
+import { 
+  fetchIncome, 
+  fetchExpenses, 
+  fetchMonthlyData, 
+  fetchYearlyTotals 
+} from '@/lib/mockDatabase';
 
 const Dashboard = () => {
-  const [income, setIncome] = useState<Income[]>(mockIncomeData);
-  const [expenses, setExpenses] = useState<Expense[]>(mockExpenseData);
+  const [income, setIncome] = useState<Income[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
   const [monthlyData, setMonthlyData] = useState<MonthlyData[]>([]);
-  const [currentMonthData, setCurrentMonthData] = useState<MonthlyData | null>(null);
   const [expandedMonths, setExpandedMonths] = useState<string[]>([]);
   const [yearlyTotals, setYearlyTotals] = useState({
     income: 0,
     expenses: 0,
     balance: 0,
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Calculate monthly data
-    const monthData: Record<string, MonthlyData> = {};
-    
-    // Process income
-    income.forEach((item: Income) => {
-      const date = new Date(item.date);
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      
-      const key = `${year}-${month}`;
-      if (!monthData[key]) {
-        const monthName = format(date, 'MMMM', { locale: de }) as any;
-        monthData[key] = {
-          month: monthName,
-          year,
-          totalIncome: 0,
-          totalExpenses: 0,
-          balance: 0,
-        };
+    const loadData = async () => {
+      setIsLoading(true);
+      try {
+        // Lade alle Daten parallel
+        const [incomeData, expensesData, monthlyDataResult, yearlyTotalsResult] = await Promise.all([
+          fetchIncome(),
+          fetchExpenses(),
+          fetchMonthlyData(),
+          fetchYearlyTotals()
+        ]);
+
+        setIncome(incomeData);
+        setExpenses(expensesData);
+        setMonthlyData(monthlyDataResult);
+        setYearlyTotals(yearlyTotalsResult);
+      } catch (error) {
+        console.error("Fehler beim Laden der Daten:", error);
+      } finally {
+        setIsLoading(false);
       }
-      
-      monthData[key].totalIncome += item.amount;
-      monthData[key].balance += item.amount;
-    });
-    
-    // Process expenses
-    expenses.forEach((item: Expense) => {
-      const date = new Date(item.date);
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      
-      const key = `${year}-${month}`;
-      if (!monthData[key]) {
-        const monthName = format(date, 'MMMM', { locale: de }) as any;
-        monthData[key] = {
-          month: monthName,
-          year,
-          totalIncome: 0,
-          totalExpenses: 0,
-          balance: 0,
-        };
-      }
-      
-      monthData[key].totalExpenses += item.amount;
-      monthData[key].balance -= item.amount;
-    });
-    
-    // Convert to array and sort by date
-    const monthlyDataArray = Object.values(monthData).sort((a, b) => {
-      if (a.year !== b.year) return b.year - a.year;
-      return getMonthNumber(b.month) - getMonthNumber(a.month);
-    });
-    
-    setMonthlyData(monthlyDataArray);
-    
-    // Set current month data
-    const now = new Date();
-    const currentMonthKey = `${now.getFullYear()}-${now.getMonth()}`;
-    setCurrentMonthData(monthData[currentMonthKey] || null);
-    
-    // Calculate yearly totals
-    const currentYear = now.getFullYear();
-    const yearlyIncome = income
-      .filter((item: Income) => new Date(item.date).getFullYear() === currentYear)
-      .reduce((sum: number, item: Income) => sum + item.amount, 0);
-      
-    const yearlyExpenses = expenses
-      .filter((item: Expense) => new Date(item.date).getFullYear() === currentYear)
-      .reduce((sum: number, item: Expense) => sum + item.amount, 0);
-      
-    setYearlyTotals({
-      income: yearlyIncome,
-      expenses: yearlyExpenses,
-      balance: yearlyIncome - yearlyExpenses,
-    });
-  }, [income, expenses]);
+    };
+
+    loadData();
+  }, []);
 
   const getMonthNumber = (monthName: string): number => {
     const months = [
@@ -200,6 +79,16 @@ const Dashboard = () => {
       fileName: `Finanzübersicht_${new Date().toISOString().split('T')[0]}`,
     });
   };
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
