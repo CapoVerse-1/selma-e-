@@ -82,6 +82,61 @@ const mockUsers: User[] = [
     lastLogin: '2024-04-30T11:45:00Z',
     isActive: true,
   },
+  {
+    id: '4',
+    email: 'thomas.schmidt@selma-druckerei.de',
+    name: 'Thomas Schmidt',
+    role: 'employee',
+    avatar: '',
+    createdAt: '2023-03-10T00:00:00Z',
+    updatedAt: '2023-03-10T00:00:00Z',
+    lastLogin: '2024-05-01T08:15:00Z',
+    isActive: true,
+  },
+  {
+    id: '5',
+    email: 'laura.mueller@selma-druckerei.de',
+    name: 'Laura Müller',
+    role: 'employee',
+    avatar: '',
+    createdAt: '2023-03-15T00:00:00Z',
+    updatedAt: '2023-03-15T00:00:00Z',
+    lastLogin: '2024-04-29T14:20:00Z',
+    isActive: true,
+  },
+  {
+    id: '6',
+    email: 'michael.weber@selma-druckerei.de',
+    name: 'Michael Weber',
+    role: 'employee',
+    avatar: '',
+    createdAt: '2023-04-05T00:00:00Z',
+    updatedAt: '2023-04-05T00:00:00Z',
+    lastLogin: '2024-04-28T11:30:00Z',
+    isActive: true,
+  },
+  {
+    id: '7',
+    email: 'sabine.wagner@selma-druckerei.de',
+    name: 'Sabine Wagner',
+    role: 'manager',
+    avatar: '',
+    createdAt: '2023-04-15T00:00:00Z',
+    updatedAt: '2023-04-15T00:00:00Z',
+    lastLogin: '2024-04-30T09:45:00Z',
+    isActive: true,
+  },
+  {
+    id: '8',
+    email: 'frank.becker@selma-druckerei.de',
+    name: 'Frank Becker',
+    role: 'employee',
+    avatar: '',
+    createdAt: '2023-05-01T00:00:00Z',
+    updatedAt: '2023-05-01T00:00:00Z',
+    lastLogin: '2024-04-25T16:20:00Z',
+    isActive: true,
+  },
 ];
 
 // Mock-Daten für Unternehmenseinstellungen
@@ -221,108 +276,156 @@ const SettingsPage = () => {
 
         {/* Profil-Tab */}
         {activeTab === 'profile' && (
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-800">Mein Profil</h2>
-                <button
-                  onClick={() => setIsEditingProfile(!isEditingProfile)}
-                  className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-4 py-2 border border-gray-300"
-                >
-                  {isEditingProfile ? (
-                    <>
-                      <FiX className="mr-2" />
-                      Abbrechen
-                    </>
-                  ) : (
-                    <>
-                      <FiEdit className="mr-2" />
-                      Bearbeiten
-                    </>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white shadow rounded-lg overflow-hidden">
+              <div className="p-4">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-semibold text-gray-800">Mein Profil</h2>
+                  <button
+                    onClick={() => setIsEditingProfile(!isEditingProfile)}
+                    className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-3 py-1 border border-gray-300 text-sm"
+                  >
+                    {isEditingProfile ? (
+                      <>
+                        <FiX className="mr-1" />
+                        Abbrechen
+                      </>
+                    ) : (
+                      <>
+                        <FiEdit className="mr-1" />
+                        Bearbeiten
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="flex flex-col">
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                      {isEditingProfile ? (
+                        <input
+                          type="text"
+                          value={currentUser.name}
+                          onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        />
+                      ) : (
+                        <div className="text-gray-900">{currentUser.name}</div>
+                      )}
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
+                      {isEditingProfile ? (
+                        <input
+                          type="email"
+                          value={currentUser.email}
+                          onChange={(e) => setCurrentUser({ ...currentUser, email: e.target.value })}
+                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        />
+                      ) : (
+                        <div className="text-gray-900">{currentUser.email}</div>
+                      )}
+                    </div>
+
+                    <div className="flex gap-4">
+                      <div className="mb-4 flex-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Rolle</label>
+                        <div className="text-gray-900 capitalize">{currentUser.role}</div>
+                      </div>
+
+                      <div className="mb-4 flex-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Letzter Login</label>
+                        <div className="text-gray-900 text-sm">
+                          {currentUser.lastLogin 
+                            ? new Date(currentUser.lastLogin).toLocaleString('de-DE') 
+                            : 'Keine Daten verfügbar'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-start">
+                    <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mr-4 relative">
+                      {currentUser.avatar ? (
+                        <img src={currentUser.avatar} alt="Profilbild" className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-gray-400">
+                          <FiUser size={24} />
+                        </span>
+                      )}
+                      {isEditingProfile && (
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                          <button className="text-white flex items-center justify-center p-1 rounded-full bg-gray-800 hover:bg-gray-700">
+                            <FiUpload size={12} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="text-sm text-gray-500">
+                      {isEditingProfile ? "Klicken, um Profilbild zu ändern" : currentUser.name}
+                    </div>
+                  </div>
+
+                  {isEditingProfile && (
+                    <div className="mt-4 flex justify-end">
+                      <button
+                        onClick={handleSaveProfile}
+                        className="ml-3 btn bg-primary hover:bg-primary-dark text-white rounded-md px-3 py-1 transition-all duration-300 ease-in-out hover:shadow-md flex items-center text-sm"
+                      >
+                        <FiSave className="mr-1" />
+                        Speichern
+                      </button>
+                    </div>
                   )}
-                </button>
+                </div>
               </div>
+            </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex flex-col">
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    {isEditingProfile ? (
-                      <input
-                        type="text"
-                        value={currentUser.name}
-                        onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                      />
-                    ) : (
-                      <div className="text-gray-900">{currentUser.name}</div>
-                    )}
+            {/* Zweites Panel für Demonstration - kann entfernt oder angepasst werden */}
+            <div className="bg-white shadow rounded-lg overflow-hidden">
+              <div className="p-4">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-semibold text-gray-800">Sicherheitseinstellungen</h2>
+                  <button
+                    className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-3 py-1 border border-gray-300 text-sm"
+                  >
+                    <FiEdit className="mr-1" />
+                    Bearbeiten
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="flex flex-col">
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Passwort</label>
+                      <div className="text-gray-900">••••••••</div>
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Zwei-Faktor-Authentifizierung</label>
+                      <div className="text-gray-900">Deaktiviert</div>
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">Letztes Passwort-Update</label>
+                      <div className="text-gray-900">05.03.2024</div>
+                    </div>
                   </div>
 
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
-                    {isEditingProfile ? (
-                      <input
-                        type="email"
-                        value={currentUser.email}
-                        onChange={(e) => setCurrentUser({ ...currentUser, email: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                      />
-                    ) : (
-                      <div className="text-gray-900">{currentUser.email}</div>
-                    )}
-                  </div>
-
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Rolle</label>
-                    <div className="text-gray-900 capitalize">{currentUser.role}</div>
-                  </div>
-
-                  <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Letzter Login</label>
-                    <div className="text-gray-900">
-                      {currentUser.lastLogin 
-                        ? new Date(currentUser.lastLogin).toLocaleString('de-DE') 
-                        : 'Keine Daten verfügbar'}
+                  <div className="flex items-center mt-4">
+                    <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden mr-4">
+                      <FiRefreshCw size={24} className="text-gray-400" />
+                    </div>
+                    
+                    <div className="text-sm text-gray-500">
+                      Empfohlen: Passwort alle 90 Tage ändern
                     </div>
                   </div>
                 </div>
-
-                <div className="flex flex-col items-center justify-start pt-8">
-                  <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mb-4 relative">
-                    {currentUser.avatar ? (
-                      <img src={currentUser.avatar} alt="Profilbild" className="w-full h-full object-cover" />
-                    ) : (
-                      <span className="text-4xl text-gray-400">
-                        <FiUser size={40} />
-                      </span>
-                    )}
-                    {isEditingProfile && (
-                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                        <button className="text-white flex items-center justify-center p-2 rounded-full bg-gray-800 hover:bg-gray-700">
-                          <FiUpload />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="text-sm text-gray-500">
-                    {isEditingProfile && "Klicken, um Profilbild zu ändern"}
-                  </div>
-                </div>
               </div>
-
-              {isEditingProfile && (
-                <div className="mt-6 flex justify-end">
-                  <button
-                    onClick={handleSaveProfile}
-                    className="ml-3 btn bg-primary hover:bg-primary-dark text-white rounded-md px-4 py-2 transition-all duration-300 ease-in-out hover:shadow-md flex items-center"
-                  >
-                    <FiSave className="mr-2" />
-                    Änderungen speichern
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         )}
