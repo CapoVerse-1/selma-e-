@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
-import { User, UserRole, CompanySettings } from '@/types';
 import { 
   FiUser, 
   FiUsers, 
@@ -12,8 +11,41 @@ import {
   FiX,
   FiSave,
   FiRefreshCw,
-  FiBuilding
+  FiHome
 } from 'react-icons/fi';
+
+// Typdefinitionen direkt in dieser Datei
+type UserRole = 'admin' | 'manager' | 'employee';
+
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  avatar?: string;
+  createdAt: string;
+  updatedAt: string;
+  lastLogin?: string;
+  isActive: boolean;
+}
+
+interface CompanySettings {
+  id: string;
+  name: string;
+  address: string;
+  taxId: string;
+  email: string;
+  phone: string;
+  website?: string;
+  logo?: string;
+  bankAccount: {
+    name: string;
+    iban: string;
+    bic: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
 
 // Mock-Daten für Benutzer
 const mockUsers: User[] = [
@@ -167,7 +199,7 @@ const SettingsPage = () => {
               onClick={() => setActiveTab('company')}
             >
               <div className="flex items-center">
-                <FiBuilding className="mr-2" />
+                <FiHome className="mr-2" />
                 Unternehmenseinstellungen
               </div>
             </button>
