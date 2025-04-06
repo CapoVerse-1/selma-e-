@@ -11,7 +11,9 @@ import {
   FiX,
   FiSave,
   FiRefreshCw,
-  FiHome
+  FiHome,
+  FiLock,
+  FiSettings
 } from 'react-icons/fi';
 
 // Typdefinitionen direkt in dieser Datei
@@ -158,6 +160,26 @@ const mockCompanySettings: CompanySettings = {
   updatedAt: '2023-01-01T00:00:00Z',
 };
 
+// Gemeinsame Stile für die UI-Komponenten
+const buttonStyles = {
+  base: "inline-flex items-center justify-center transition-all duration-200 focus:outline-none",
+  primary: "bg-primary hover:bg-primary-dark text-white rounded-md shadow-sm hover:shadow transform hover:scale-[1.03]",
+  secondary: "border border-gray-200 hover:border-gray-300 bg-white text-gray-700 hover:bg-gray-50 rounded-md shadow-sm hover:shadow transform hover:scale-[1.03]",
+  icon: "text-gray-500 hover:text-primary p-1 rounded-full hover:bg-gray-100 transform hover:scale-105",
+  sizes: {
+    sm: "px-2 py-1 text-xs",
+    md: "px-3 py-1.5 text-sm",
+    lg: "px-4 py-2 text-base",
+  }
+};
+
+const iconSizes = {
+  sm: 14,
+  md: 16,
+  lg: 18,
+  xl: 20
+};
+
 const SettingsPage = () => {
   const [activeTab, setActiveTab] = useState<'profile' | 'company' | 'users'>('profile');
   const [users, setUsers] = useState<User[]>(mockUsers);
@@ -224,158 +246,153 @@ const SettingsPage = () => {
 
   return (
     <Layout>
-      <div className="space-y-6">
+      <div className="space-y-5">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-semibold text-gray-800">Einstellungen</h1>
+          <h1 className="text-2xl font-medium text-gray-800">Einstellungen</h1>
         </div>
 
         {/* Tabs */}
         <div className="border-b border-gray-200">
-          <nav className="flex -mb-px space-x-8">
+          <nav className="flex -mb-px space-x-6">
             <button
-              className={`pb-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+              className={`pb-3 px-1 border-b-2 font-medium text-sm transition-all duration-200 flex items-center ${
                 activeTab === 'profile'
                   ? 'border-primary text-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
               onClick={() => setActiveTab('profile')}
             >
-              <div className="flex items-center">
-                <FiUser className="mr-2" />
-                Mein Profil
-              </div>
+              <FiUser size={iconSizes.sm} className="mr-1.5" />
+              <span>Mein Profil</span>
             </button>
             <button
-              className={`pb-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+              className={`pb-3 px-1 border-b-2 font-medium text-sm transition-all duration-200 flex items-center ${
                 activeTab === 'company'
                   ? 'border-primary text-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
               onClick={() => setActiveTab('company')}
             >
-              <div className="flex items-center">
-                <FiHome className="mr-2" />
-                Unternehmenseinstellungen
-              </div>
+              <FiHome size={iconSizes.sm} className="mr-1.5" />
+              <span>Unternehmen</span>
             </button>
             <button
-              className={`pb-4 px-1 border-b-2 font-medium text-sm transition-colors duration-200 ${
+              className={`pb-3 px-1 border-b-2 font-medium text-sm transition-all duration-200 flex items-center ${
                 activeTab === 'users'
                   ? 'border-primary text-primary'
                   : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
               }`}
               onClick={() => setActiveTab('users')}
             >
-              <div className="flex items-center">
-                <FiUsers className="mr-2" />
-                Mitarbeiterverwaltung
-              </div>
+              <FiUsers size={iconSizes.sm} className="mr-1.5" />
+              <span>Mitarbeiter</span>
             </button>
           </nav>
         </div>
 
         {/* Profil-Tab */}
         {activeTab === 'profile' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white shadow-sm rounded-lg overflow-hidden">
               <div className="p-4">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg font-semibold text-gray-800">Mein Profil</h2>
+                <div className="flex justify-between items-center mb-3">
+                  <h2 className="text-base font-medium text-gray-800 flex items-center">
+                    <FiUser size={iconSizes.sm} className="mr-1.5 text-primary" />
+                    Mein Profil
+                  </h2>
                   <button
                     onClick={() => setIsEditingProfile(!isEditingProfile)}
-                    className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-3 py-1 border border-gray-300 text-sm"
+                    className={`${buttonStyles.base} ${buttonStyles.icon}`}
+                    title={isEditingProfile ? "Abbrechen" : "Bearbeiten"}
                   >
                     {isEditingProfile ? (
-                      <>
-                        <FiX className="mr-1" />
-                        Abbrechen
-                      </>
+                      <FiX size={iconSizes.sm} />
                     ) : (
-                      <>
-                        <FiEdit className="mr-1" />
-                        Bearbeiten
-                      </>
+                      <FiEdit size={iconSizes.sm} />
                     )}
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="flex flex-col">
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="flex items-center mb-2">
+                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden mr-3 relative">
+                      {currentUser.avatar ? (
+                        <img src={currentUser.avatar} alt="Profilbild" className="w-full h-full object-cover" />
+                      ) : (
+                        <FiUser size={iconSizes.md} className="text-gray-400" />
+                      )}
+                      {isEditingProfile && (
+                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-all duration-200">
+                          <FiUpload size={iconSizes.sm} className="text-white" />
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <div className="text-sm font-medium text-gray-800">{currentUser.name}</div>
+                      <div className="text-xs text-gray-500">{currentUser.email}</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col space-y-2">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Name</label>
                       {isEditingProfile ? (
                         <input
                           type="text"
                           value={currentUser.name}
                           onChange={(e) => setCurrentUser({ ...currentUser, name: e.target.value })}
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                          className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                         />
                       ) : (
-                        <div className="text-gray-900">{currentUser.name}</div>
+                        <div className="text-sm text-gray-700">{currentUser.name}</div>
                       )}
                     </div>
 
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">E-Mail</label>
                       {isEditingProfile ? (
                         <input
                           type="email"
                           value={currentUser.email}
                           onChange={(e) => setCurrentUser({ ...currentUser, email: e.target.value })}
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                          className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                         />
                       ) : (
-                        <div className="text-gray-900">{currentUser.email}</div>
+                        <div className="text-sm text-gray-700">{currentUser.email}</div>
                       )}
                     </div>
 
-                    <div className="flex gap-4">
-                      <div className="mb-4 flex-1">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Rolle</label>
-                        <div className="text-gray-900 capitalize">{currentUser.role}</div>
+                    <div className="flex gap-3">
+                      <div className="flex-1">
+                        <label className="block text-xs font-medium text-gray-500 mb-1">Rolle</label>
+                        <div className="text-sm text-gray-700 capitalize">{currentUser.role}</div>
                       </div>
 
-                      <div className="mb-4 flex-1">
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Letzter Login</label>
-                        <div className="text-gray-900 text-sm">
+                      <div className="flex-1">
+                        <label className="block text-xs font-medium text-gray-500 mb-1">Letzter Login</label>
+                        <div className="text-xs text-gray-700">
                           {currentUser.lastLogin 
-                            ? new Date(currentUser.lastLogin).toLocaleString('de-DE') 
+                            ? new Date(currentUser.lastLogin).toLocaleString('de-DE', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              }) 
                             : 'Keine Daten verfügbar'}
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-start">
-                    <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden mr-4 relative">
-                      {currentUser.avatar ? (
-                        <img src={currentUser.avatar} alt="Profilbild" className="w-full h-full object-cover" />
-                      ) : (
-                        <span className="text-gray-400">
-                          <FiUser size={24} />
-                        </span>
-                      )}
-                      {isEditingProfile && (
-                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                          <button className="text-white flex items-center justify-center p-1 rounded-full bg-gray-800 hover:bg-gray-700">
-                            <FiUpload size={12} />
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="text-sm text-gray-500">
-                      {isEditingProfile ? "Klicken, um Profilbild zu ändern" : currentUser.name}
-                    </div>
-                  </div>
-
                   {isEditingProfile && (
-                    <div className="mt-4 flex justify-end">
+                    <div className="flex justify-end mt-2">
                       <button
                         onClick={handleSaveProfile}
-                        className="ml-3 btn bg-primary hover:bg-primary-dark text-white rounded-md px-3 py-1 transition-all duration-300 ease-in-out hover:shadow-md flex items-center text-sm"
+                        className={`${buttonStyles.base} ${buttonStyles.primary} ${buttonStyles.sizes.sm}`}
                       >
-                        <FiSave className="mr-1" />
+                        <FiSave size={iconSizes.sm} className="mr-1" />
                         Speichern
                       </button>
                     </div>
@@ -384,45 +401,42 @@ const SettingsPage = () => {
               </div>
             </div>
 
-            {/* Zweites Panel für Demonstration - kann entfernt oder angepasst werden */}
-            <div className="bg-white shadow rounded-lg overflow-hidden">
+            <div className="bg-white shadow-sm rounded-lg overflow-hidden">
               <div className="p-4">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg font-semibold text-gray-800">Sicherheitseinstellungen</h2>
+                <div className="flex justify-between items-center mb-3">
+                  <h2 className="text-base font-medium text-gray-800 flex items-center">
+                    <FiLock size={iconSizes.sm} className="mr-1.5 text-primary" />
+                    Sicherheit
+                  </h2>
                   <button
-                    className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-3 py-1 border border-gray-300 text-sm"
+                    className={`${buttonStyles.base} ${buttonStyles.icon}`}
+                    title="Bearbeiten"
                   >
-                    <FiEdit className="mr-1" />
-                    Bearbeiten
+                    <FiEdit size={iconSizes.sm} />
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="flex flex-col">
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Passwort</label>
-                      <div className="text-gray-900">••••••••</div>
-                    </div>
+                <div className="grid grid-cols-1 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Passwort</label>
+                    <div className="text-sm text-gray-700">••••••••</div>
+                  </div>
 
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Zwei-Faktor-Authentifizierung</label>
-                      <div className="text-gray-900">Deaktiviert</div>
-                    </div>
-
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Letztes Passwort-Update</label>
-                      <div className="text-gray-900">05.03.2024</div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Zwei-Faktor-Authentifizierung</label>
+                    <div className="text-sm text-gray-700">
+                      <span className="px-2 py-0.5 text-xs rounded-full bg-red-50 text-red-600">Deaktiviert</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center mt-4">
-                    <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden mr-4">
-                      <FiRefreshCw size={24} className="text-gray-400" />
-                    </div>
-                    
-                    <div className="text-sm text-gray-500">
-                      Empfohlen: Passwort alle 90 Tage ändern
-                    </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Letztes Passwort-Update</label>
+                    <div className="text-sm text-gray-700">05.03.2024</div>
+                  </div>
+
+                  <div className="flex items-center mt-1 text-xs text-gray-500 border-t border-gray-100 pt-2">
+                    <FiRefreshCw size={iconSizes.sm} className="mr-1 text-gray-400" />
+                    Empfohlen: Passwort alle 90 Tage ändern
                   </div>
                 </div>
               </div>
@@ -432,124 +446,125 @@ const SettingsPage = () => {
 
         {/* Unternehmenseinstellungen-Tab */}
         {activeTab === 'company' && (
-          <div className="bg-white shadow rounded-lg overflow-hidden">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-gray-800">Unternehmenseinstellungen</h2>
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div className="p-4">
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="text-base font-medium text-gray-800 flex items-center">
+                  <FiHome size={iconSizes.sm} className="mr-1.5 text-primary" />
+                  Unternehmenseinstellungen
+                </h2>
                 <button
                   onClick={() => setIsEditingCompany(!isEditingCompany)}
-                  className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md hover:scale-105 rounded-md px-4 py-2 border border-gray-300"
+                  className={`${buttonStyles.base} ${buttonStyles.icon}`}
+                  title={isEditingCompany ? "Abbrechen" : "Bearbeiten"}
                 >
                   {isEditingCompany ? (
-                    <>
-                      <FiX className="mr-2" />
-                      Abbrechen
-                    </>
+                    <FiX size={iconSizes.sm} />
                   ) : (
-                    <>
-                      <FiEdit className="mr-2" />
-                      Bearbeiten
-                    </>
+                    <FiEdit size={iconSizes.sm} />
                   )}
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Firmenname</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Firmenname</label>
                     {isEditingCompany ? (
                       <input
                         type="text"
                         value={companySettings.name}
                         onChange={(e) => setCompanySettings({ ...companySettings, name: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     ) : (
-                      <div className="text-gray-900">{companySettings.name}</div>
+                      <div className="text-sm text-gray-700">{companySettings.name}</div>
                     )}
                   </div>
 
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Adresse</label>
                     {isEditingCompany ? (
                       <textarea
                         value={companySettings.address}
                         onChange={(e) => setCompanySettings({ ...companySettings, address: e.target.value })}
-                        rows={3}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        rows={2}
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     ) : (
-                      <div className="text-gray-900 whitespace-pre-line">{companySettings.address}</div>
+                      <div className="text-sm text-gray-700 whitespace-pre-line">{companySettings.address}</div>
                     )}
                   </div>
 
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Steuernummer</label>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Steuernummer</label>
                     {isEditingCompany ? (
                       <input
                         type="text"
                         value={companySettings.taxId}
                         onChange={(e) => setCompanySettings({ ...companySettings, taxId: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     ) : (
-                      <div className="text-gray-900">{companySettings.taxId}</div>
+                      <div className="text-sm text-gray-700">{companySettings.taxId}</div>
                     )}
                   </div>
                 </div>
 
-                <div>
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">E-Mail</label>
                     {isEditingCompany ? (
                       <input
                         type="email"
                         value={companySettings.email}
                         onChange={(e) => setCompanySettings({ ...companySettings, email: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     ) : (
-                      <div className="text-gray-900">{companySettings.email}</div>
+                      <div className="text-sm text-gray-700">{companySettings.email}</div>
                     )}
                   </div>
 
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Telefon</label>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Telefon</label>
                     {isEditingCompany ? (
                       <input
                         type="text"
                         value={companySettings.phone}
                         onChange={(e) => setCompanySettings({ ...companySettings, phone: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     ) : (
-                      <div className="text-gray-900">{companySettings.phone}</div>
+                      <div className="text-sm text-gray-700">{companySettings.phone}</div>
                     )}
                   </div>
 
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Website</label>
                     {isEditingCompany ? (
                       <input
                         type="text"
                         value={companySettings.website || ''}
                         onChange={(e) => setCompanySettings({ ...companySettings, website: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                        className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                       />
                     ) : (
-                      <div className="text-gray-900">{companySettings.website || '-'}</div>
+                      <div className="text-sm text-gray-700">{companySettings.website || '-'}</div>
                     )}
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Bankverbindung</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="mt-4">
+                <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                  <FiSettings size={iconSizes.sm} className="mr-1 text-gray-500" />
+                  Bankverbindung
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Bank</label>
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">Bank</label>
                       {isEditingCompany ? (
                         <input
                           type="text"
@@ -561,17 +576,17 @@ const SettingsPage = () => {
                               name: e.target.value
                             }
                           })}
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                          className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                         />
                       ) : (
-                        <div className="text-gray-900">{companySettings.bankAccount.name}</div>
+                        <div className="text-sm text-gray-700">{companySettings.bankAccount.name}</div>
                       )}
                     </div>
                   </div>
 
-                  <div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">IBAN</label>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">IBAN</label>
                       {isEditingCompany ? (
                         <input
                           type="text"
@@ -583,15 +598,15 @@ const SettingsPage = () => {
                               iban: e.target.value
                             }
                           })}
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                          className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                         />
                       ) : (
-                        <div className="text-gray-900">{companySettings.bankAccount.iban}</div>
+                        <div className="text-sm text-gray-700">{companySettings.bankAccount.iban}</div>
                       )}
                     </div>
 
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">BIC</label>
+                    <div>
+                      <label className="block text-xs font-medium text-gray-500 mb-1">BIC</label>
                       {isEditingCompany ? (
                         <input
                           type="text"
@@ -603,10 +618,10 @@ const SettingsPage = () => {
                               bic: e.target.value
                             }
                           })}
-                          className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                          className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                         />
                       ) : (
-                        <div className="text-gray-900">{companySettings.bankAccount.bic}</div>
+                        <div className="text-sm text-gray-700">{companySettings.bankAccount.bic}</div>
                       )}
                     </div>
                   </div>
@@ -614,13 +629,13 @@ const SettingsPage = () => {
               </div>
 
               {isEditingCompany && (
-                <div className="mt-6 flex justify-end">
+                <div className="mt-4 flex justify-end">
                   <button
                     onClick={handleSaveCompanySettings}
-                    className="ml-3 btn bg-primary hover:bg-primary-dark text-white rounded-md px-4 py-2 transition-all duration-300 ease-in-out hover:shadow-md flex items-center"
+                    className={`${buttonStyles.base} ${buttonStyles.primary} ${buttonStyles.sizes.sm}`}
                   >
-                    <FiSave className="mr-2" />
-                    Änderungen speichern
+                    <FiSave size={iconSizes.sm} className="mr-1" />
+                    Speichern
                   </button>
                 </div>
               )}
@@ -630,56 +645,58 @@ const SettingsPage = () => {
 
         {/* Mitarbeiterverwaltung-Tab */}
         {activeTab === 'users' && (
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-800">Mitarbeiterverwaltung</h2>
+              <h2 className="text-base font-medium text-gray-800 flex items-center">
+                <FiUsers size={iconSizes.sm} className="mr-1.5 text-primary" />
+                Mitarbeiterverwaltung
+              </h2>
               <button
                 onClick={() => setIsAddingUser(!isAddingUser)}
-                className="btn bg-primary hover:bg-primary-dark text-white rounded-md px-4 py-2 transition-all duration-300 ease-in-out hover:shadow-md flex items-center"
+                className={`${buttonStyles.base} ${buttonStyles.primary} ${buttonStyles.sizes.sm}`}
               >
-                <FiPlusCircle className="mr-2" />
+                <FiPlusCircle size={iconSizes.sm} className="mr-1" />
                 Neuer Mitarbeiter
               </button>
             </div>
 
             {/* Formular zum Hinzufügen eines neuen Mitarbeiters */}
             {isAddingUser && (
-              <div className="bg-white shadow rounded-lg p-6 mb-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">Neuen Mitarbeiter hinzufügen</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-white shadow-sm rounded-lg p-4 mb-4">
+                <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
+                  <FiUser size={iconSizes.sm} className="mr-1.5 text-primary" />
+                  Neuen Mitarbeiter hinzufügen
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                      <input
-                        type="text"
-                        value={newUser.name}
-                        onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                        placeholder="Max Mustermann"
-                      />
-                    </div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Name</label>
+                    <input
+                      type="text"
+                      value={newUser.name}
+                      onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                      className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
+                      placeholder="Max Mustermann"
+                    />
                   </div>
 
                   <div>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">E-Mail</label>
-                      <input
-                        type="email"
-                        value={newUser.email}
-                        onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                        placeholder="max.mustermann@selma-druckerei.de"
-                      />
-                    </div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">E-Mail</label>
+                    <input
+                      type="email"
+                      value={newUser.email}
+                      onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                      className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
+                      placeholder="max.mustermann@selma-druckerei.de"
+                    />
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Rolle</label>
+                <div className="mt-3">
+                  <label className="block text-xs font-medium text-gray-500 mb-1">Rolle</label>
                   <select
                     value={newUser.role}
                     onChange={(e) => setNewUser({ ...newUser, role: e.target.value as UserRole })}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
+                    className="w-full px-2 py-1.5 border border-gray-200 rounded-md text-sm focus:ring-1 focus:ring-primary focus:border-primary"
                   >
                     <option value="admin">Administrator</option>
                     <option value="manager">Manager</option>
@@ -687,20 +704,20 @@ const SettingsPage = () => {
                   </select>
                 </div>
 
-                <div className="mt-6 flex justify-end space-x-3">
+                <div className="mt-4 flex justify-end space-x-2">
                   <button
                     onClick={() => setIsAddingUser(false)}
-                    className="btn btn-outline flex items-center transition-all duration-300 ease-in-out hover:bg-gray-50 hover:shadow-md rounded-md px-4 py-2 border border-gray-300"
+                    className={`${buttonStyles.base} ${buttonStyles.secondary} ${buttonStyles.sizes.sm}`}
                   >
-                    <FiX className="mr-2" />
+                    <FiX size={iconSizes.sm} className="mr-1" />
                     Abbrechen
                   </button>
                   <button
                     onClick={handleAddUser}
-                    className="btn bg-primary hover:bg-primary-dark text-white rounded-md px-4 py-2 transition-all duration-300 ease-in-out hover:shadow-md flex items-center"
+                    className={`${buttonStyles.base} ${buttonStyles.primary} ${buttonStyles.sizes.sm}`}
                     disabled={!newUser.email || !newUser.name}
                   >
-                    <FiCheck className="mr-2" />
+                    <FiCheck size={iconSizes.sm} className="mr-1" />
                     Hinzufügen
                   </button>
                 </div>
@@ -708,100 +725,98 @@ const SettingsPage = () => {
             )}
 
             {/* Mitarbeitertabelle */}
-            <div className="bg-white shadow rounded-lg overflow-hidden">
+            <div className="bg-white shadow-sm rounded-lg overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Name
                       </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         E-Mail
                       </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Rolle
                       </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Status
                       </th>
-                      <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Letzter Login
                       </th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th scope="col" className="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Aktionen
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white divide-y divide-gray-100">
                     {users.map((user) => (
                       <tr key={user.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-4 py-2 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                            <div className="flex-shrink-0 h-7 w-7 rounded-full bg-gray-100 flex items-center justify-center">
                               {user.avatar ? (
-                                <img src={user.avatar} alt="" className="h-10 w-10 rounded-full" />
+                                <img src={user.avatar} alt="" className="h-7 w-7 rounded-full" />
                               ) : (
-                                <span className="text-gray-500">
-                                  <FiUser />
-                                </span>
+                                <FiUser size={iconSizes.sm} className="text-gray-400" />
                               )}
                             </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                            <div className="ml-2">
+                              <div className="text-sm font-medium text-gray-700">{user.name}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">{user.email}</div>
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          <div className="text-xs text-gray-500">{user.email}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        <td className="px-4 py-2 whitespace-nowrap">
+                          <span className={`px-1.5 py-0.5 inline-flex text-xs leading-4 font-medium rounded-full ${
                             user.role === 'admin'
-                              ? 'bg-purple-100 text-purple-800'
+                              ? 'bg-purple-50 text-purple-700'
                               : user.role === 'manager'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-green-100 text-green-800'
+                              ? 'bg-blue-50 text-blue-700'
+                              : 'bg-green-50 text-green-700'
                           }`}>
                             {user.role === 'admin'
-                              ? 'Administrator'
+                              ? 'Admin'
                               : user.role === 'manager'
                               ? 'Manager'
                               : 'Mitarbeiter'}
                           </span>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-4 py-2 whitespace-nowrap">
                           <button
                             onClick={() => handleToggleUserStatus(user.id)}
-                            className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            className={`px-1.5 py-0.5 inline-flex text-xs leading-4 font-medium rounded-full cursor-pointer transition-colors ${
                               user.isActive
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-red-100 text-red-800'
-                            } cursor-pointer transition-colors hover:bg-opacity-80`}
+                                ? 'bg-green-50 text-green-700 hover:bg-green-100'
+                                : 'bg-red-50 text-red-700 hover:bg-red-100'
+                            }`}
                           >
                             {user.isActive ? 'Aktiv' : 'Inaktiv'}
                           </button>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-4 py-2 whitespace-nowrap text-xs text-gray-500">
                           {user.lastLogin
                             ? new Date(user.lastLogin).toLocaleDateString('de-DE')
                             : 'Nie'}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <div className="flex items-center justify-end space-x-2">
+                        <td className="px-4 py-2 whitespace-nowrap text-right">
+                          <div className="flex items-center justify-end space-x-1">
                             <button
-                              className="text-blue-600 hover:text-blue-900 transition-colors"
+                              className={`${buttonStyles.base} ${buttonStyles.icon}`}
                               title="Bearbeiten"
                             >
-                              <FiEdit size={18} />
+                              <FiEdit size={iconSizes.sm} />
                             </button>
                             <button
                               onClick={() => handleDeleteUser(user.id)}
-                              className="text-red-600 hover:text-red-900 transition-colors"
+                              className={`${buttonStyles.base} ${buttonStyles.icon} ${user.id === '1' ? 'opacity-30 cursor-not-allowed' : 'text-red-500 hover:text-red-700 hover:bg-red-50'}`}
                               title="Löschen"
                               disabled={user.id === '1'} // Verhindert das Löschen des Admin-Kontos
                             >
-                              <FiTrash2 size={18} className={user.id === '1' ? 'opacity-30 cursor-not-allowed' : ''} />
+                              <FiTrash2 size={iconSizes.sm} />
                             </button>
                           </div>
                         </td>
