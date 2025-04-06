@@ -207,7 +207,7 @@ const Dashboard = () => {
 
         {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="card">
+          <div className="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-2px]">
             <h3 className="text-lg font-medium text-gray-700 mb-2">Einnahmen (Jahresübersicht)</h3>
             <div className="flex items-baseline">
               <p className="text-2xl font-semibold text-green-600">{formatCurrency(yearlyTotals.income)}</p>
@@ -215,7 +215,7 @@ const Dashboard = () => {
             </div>
           </div>
           
-          <div className="card">
+          <div className="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-2px]">
             <h3 className="text-lg font-medium text-gray-700 mb-2">Ausgaben (Jahresübersicht)</h3>
             <div className="flex items-baseline">
               <p className="text-2xl font-semibold text-red-600">{formatCurrency(yearlyTotals.expenses)}</p>
@@ -223,7 +223,7 @@ const Dashboard = () => {
             </div>
           </div>
           
-          <div className="card">
+          <div className="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 ease-in-out hover:shadow-lg hover:translate-y-[-2px]">
             <h3 className="text-lg font-medium text-gray-700 mb-2">Bilanz (Jahresübersicht)</h3>
             <div className="flex items-baseline">
               <p className={`text-2xl font-semibold ${yearlyTotals.balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -234,7 +234,7 @@ const Dashboard = () => {
         </div>
 
         {/* Monthly Overview */}
-        <div className="card">
+        <div className="card bg-white rounded-lg shadow-md p-6 transition-all duration-300 ease-in-out hover:shadow-lg">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Monatliche Übersicht</h2>
           
           <div className="overflow-x-auto">
